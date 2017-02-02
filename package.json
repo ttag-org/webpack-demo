@@ -10,7 +10,7 @@
     "extract": "webpack --env.extract",
     "merge": "msgmerge uk.po template.pot -U",
     "watch": "webpack -w",
-    "publish": "npm run build && cd dist && git init && git commit --allow-empty -m 'update' && git checkout -b gh-pages && touch .nojekyll && git add . && git commit -am 'update' && git push git@github.com:c-3po-org/webpack-demo.git gh-pages --force"
+    "publish": "webpack --env.host=https://c-3po-org.github.io/webpack-demo && webpack --env.locale=uk --env.host=https://c-3po-org.github.io/webpack-demo && cd dist && git init && git commit --allow-empty -m 'update' && git checkout gh-pages && touch .nojekyll && git add . && git commit -am 'update' && git push git@github.com:c-3po-org/webpack-demo.git gh-pages --force"
   },
   "author": "",
   "license": "ISC",

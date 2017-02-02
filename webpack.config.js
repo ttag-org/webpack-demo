@@ -1,6 +1,7 @@
+const webpack = require('webpack');
 const StaticSiteGeneratorPlugin = require('static-site-generator-webpack-plugin');
 
-module.exports = ({ extract, locale }={}) => {
+module.exports = ({ extract, locale, host }={}) => {
     const c3po = {};
 
     function localePath(path) {
@@ -27,7 +28,10 @@ module.exports = ({ extract, locale }={}) => {
             ]
         },
         plugins: [
-            new StaticSiteGeneratorPlugin('app', localePath('index.html'))
+            new StaticSiteGeneratorPlugin('app', localePath('index.html')),
+            new webpack.DefinePlugin({
+                HOST: JSON.stringify(host || ''),
+            }),
         ]
 
     }

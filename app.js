@@ -8,8 +8,8 @@ export const view = (hours, minutes, seconds) => {
     return `
     <ul>
         <li>${ t`Choose locale` }</li>
-        <li><a href="/">en</a></li>
-        <li><a href="/uk">uk</a></li>
+        <li><a href="${HOST}/">en</a></li>
+        <li><a href="${HOST}/uk">uk</a></li>
     </ul>
     <h1>${ t`webpack with c-3po localization demo` }</h1>
     <h2>${ t`Current time is` }</h2>
