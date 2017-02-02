@@ -1,0 +1,7 @@
+.idea
+node_modules
+dist
+_book
+*.log
+.DS_Store
+*~
