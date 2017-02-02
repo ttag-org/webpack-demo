@@ -162,8 +162,8 @@ const view = (hours, minutes, seconds) => {
     return `
     <ul>
         <li>${'Choose locale'}</li>
-        <li><a href="/">en</a></li>
-        <li><a href="/uk">uk</a></li>
+        <li><a href="${"https://c-3po-org.github.io/webpack-demo"}/">en</a></li>
+        <li><a href="${"https://c-3po-org.github.io/webpack-demo"}/uk">uk</a></li>
     </ul>
     <h1>${'webpack with c-3po localization demo'}</h1>
     <h2>${'Current time is'}</h2>
