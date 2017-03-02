@@ -1,6 +1,7 @@
 .idea
 node_modules
 dist
+dist2
 _book
 *.log
 .DS_Store

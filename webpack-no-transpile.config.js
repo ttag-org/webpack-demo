@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const StaticSiteGeneratorPlugin = require('static-site-generator-webpack-plugin');
-const path = require('path');
+const fs = require('fs');
+const gt = require('gettext-parser');
 
 module.exports = ({ extract, locale, host }={}) => {
     const c3po = {};
@@ -13,32 +14,28 @@ module.exports = ({ extract, locale, host }={}) => {
         c3po.extract = { output: 'template.pot'}
     }
 
-    if (locale) {
-        c3po.resolve = { translations: `${locale}.po` };
-    }
+    const locales = {'uk': gt.po.parse(fs.readFileSync('uk.po'))};
 
     return {
         entry: { app: './app.js' },
-        output: { path: 'dist',  filename: localePath('app.js'), libraryTarget: 'umd' },
+        output: { path: 'dist2',  filename: localePath('app.js'), libraryTarget: 'umd' },
         module: {
             rules: [
                 {
                     test: /\.(js|jsx)$/,
-                    use: { loader: 'babel-loader', options: { plugins: [['c-3po', c3po]] } }
+                    use: { loader: 'babel-loader', options: { plugins: extract ? [['c-3po', c3po]] : [] } }
                 }
             ]
-        },
-        resolve: {
-            alias: {
-                'c-3po': path.join(__dirname, 'node_modules/c-3po/dist/mock.js')
-            }
         },
         plugins: [
             new StaticSiteGeneratorPlugin('app', localePath('index.html')),
             new webpack.DefinePlugin({
                 HOST: JSON.stringify(host || ''),
+                LOCALES_DATA: locale && JSON.stringify(locales) || JSON.stringify(false),
+                LOCALE: JSON.stringify(locale) || JSON.stringify(false),
             }),
         ]
 
     }
 };
+

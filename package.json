@@ -7,6 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack && npm run build-uk",
     "build-uk": "webpack --env.locale=uk",
+    "build2": "webpack --config webpack-no-transpile.config.js && npm run build-uk2",
+    "build-uk2": "webpack --env.locale=uk --config webpack-no-transpile.config.js",
     "extract": "webpack --env.extract",
     "merge": "msgmerge uk.po template.pot -U",
     "watch": "webpack -w",
@@ -23,6 +25,6 @@
     "webpack": "^2.2.1"
   },
   "dependencies": {
-    "c-3po": "0.0.6"
+    "c-3po": "0.1.1"
   }
 }

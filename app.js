@@ -1,4 +1,4 @@
-import { ngettext, msgid, t } from 'c-3po';
+import { ngettext, msgid, t, regLocale, useLocale } from 'c-3po';
 
 export const view = (hours, minutes, seconds) => {
     const hoursTxt = ngettext(msgid`${hours} hour`, `${hours} hours`, hours);
@@ -19,6 +19,10 @@ export const view = (hours, minutes, seconds) => {
 
 
 if (typeof document !== 'undefined') {
+    if (LOCALES_DATA !== null && LOCALES_DATA[LOCALE]) {
+        regLocale(LOCALE, LOCALES_DATA[LOCALE]);
+        useLocale(LOCALE);
+    }
     const content = document.getElementById('content');
     setInterval(() => {
         const date = new Date();
