@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 const StaticSiteGeneratorPlugin = require('static-site-generator-webpack-plugin');
 const fs = require('fs');
-const gt = require('gettext-parser');
+const { loadFile } = require('c-3po/loader');
 
 module.exports = ({ extract, locale, host }={}) => {
     const c3po = {};
@@ -14,7 +14,7 @@ module.exports = ({ extract, locale, host }={}) => {
         c3po.extract = { output: 'template.pot'}
     }
 
-    const locales = {'uk': gt.po.parse(fs.readFileSync('uk.po'))};
+    const locales = {'uk': loadFile('uk.po')};
 
     return {
         entry: { app: './app.js' },
