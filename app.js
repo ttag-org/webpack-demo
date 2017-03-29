@@ -17,17 +17,21 @@ export const view = (hours, minutes, seconds) => {
     `
 };
 
-
-if (typeof document !== 'undefined') {
-    if (LOCALES_DATA !== null && LOCALES_DATA[LOCALE]) {
-        addLocale(LOCALE, LOCALES_DATA[LOCALE]);
-        useLocale(LOCALE);
-    }
+function runApp() {
     const content = document.getElementById('content');
     setInterval(() => {
         const date = new Date();
         content.innerHTML = view(date.getHours(), date.getMinutes(), date.getSeconds());
     }, 1000);
+}
+
+if (typeof document !== 'undefined') {
+    require.ensure([], (require) => {
+        const localeData = require(`./uk.po`);
+        addLocale('uk', localeData);
+        useLocale('uk');
+        runApp();
+    });
 }
 
 export default () => {
