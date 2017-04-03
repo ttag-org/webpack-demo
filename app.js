@@ -1,5 +1,4 @@
 import { ngettext, msgid, t, addLocale, useLocale } from 'c-3po';
-
 export const view = (hours, minutes, seconds) => {
     const hoursTxt = ngettext(msgid`${hours} hour`, `${hours} hours`, hours);
     const minutesTxt = ngettext(msgid`${minutes} minute`, `${minutes} minutes`, minutes);
@@ -25,33 +24,18 @@ function runApp() {
     }, 1000);
 }
 
-if (typeof document !== 'undefined') {
-    require.ensure([], (require) => {
-        const localeData = require(`./uk.po`);
-        addLocale('uk', localeData);
-        useLocale('uk');
+if (process.env.NODE_ENV !== 'production') {
+    const LOCALE = window.LOCALE;
+    if (LOCALE !== 'en') {
+        require.ensure([], (require) => {
+            const localeData = require(`./${LOCALE}.po`);
+            addLocale(LOCALE, localeData);
+            useLocale(LOCALE);
+            runApp();
+        });
+    } else {
         runApp();
-    });
+    }
+} else {
+    runApp();
 }
-
-export default () => {
-    const date = new Date();
-    const viewStr = view(date.getHours(), date.getMinutes(), date.getSeconds());
-
-    return `<!DOCTYPE html>
-        <html>
-        <head>
-            <meta charset="utf-8">
-            <title>c-3po with webpack demo</title>
-        </head>
-        <style>
-            li { display: inline; margin: 0, padding: 0 }
-            ul { margin: 0; padding: 0 }
-        </style>
-        
-        <body>
-        <div id="content">${viewStr}</div>
-        <script src='./app.js' type='text/javascript'></script>
-        </body>
-    </html>`
-};

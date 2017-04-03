@@ -5,14 +5,13 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack && npm run build-uk",
-    "build-uk": "webpack --env.locale=uk",
-    "build2": "webpack --config webpack-no-transpile.config.js && npm run build-uk2",
-    "build-uk2": "webpack --env.locale=uk --config webpack-no-transpile.config.js",
-    "extract": "webpack --env.extract",
-    "merge": "msgmerge uk.po template.pot -U",
+    "build": "webpack",
     "watch": "webpack -w",
-    "publish": "webpack --env.host=https://c-3po-org.github.io/webpack-demo && webpack --env.locale=uk --env.host=https://c-3po-org.github.io/webpack-demo && cd dist && git init && git commit --allow-empty -m 'update' && git checkout gh-pages && touch .nojekyll && git add . && git commit -am 'update' && git push git@github.com:c-3po-org/webpack-demo.git gh-pages --force"
+    "build-prod": "NODE_ENV=production webpack --env.locale=uk -p && NODE_ENV=production webpack -p",
+    "dev-server": "npm run build && node server.js",
+    "prod-server": "npm run build-prod && NODE_ENV=production node server",
+    "extract": "webpack --env.extract",
+    "merge": "msgmerge uk.po template.pot -U"
   },
   "author": "",
   "license": "ISC",
@@ -27,6 +26,7 @@
   },
   "dependencies": {
     "c-3po": "0.4.6",
+    "express": "^4.15.2",
     "po-gettext-loader": "0.1.1",
     "po-loader": "^0.3.1"
   }
